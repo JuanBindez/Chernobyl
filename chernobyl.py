@@ -18,14 +18,18 @@ def check_new_version(current_version):
     code_url = "https://raw.githubusercontent.com/JuanBindez/Chernobyl/main/code.json"
 
     try:
-        with urllib.request.urlopen(code_url) as response:
-            version_info = response.read().decode().strip()
-
-        code_data = json.loads(version_info)
-        latest_version = code_data.get("code", "")
-        mensagem = code_data.get("message", "")
-
         while True:
+            with urllib.request.urlopen(code_url) as response:
+                version_info = response.read().decode().strip()
+
+            code_data = json.loads(version_info)
+            latest_version = code_data.get("code", "")
+            mensagem = code_data.get("message", "")
+
+            print("last", latest_version,)
+            print("current", current_version)
+
+
             time.sleep(4)
             if latest_version == current_version:
                 time.sleep(4)
