@@ -6,10 +6,13 @@ import webbrowser
 
 
 def show_menssage(mensagem):
-    # Usando o zenity para exibir uma caixa de diálogo de mensagem
-    comando = ['zenity', '--info', '--text', mensagem]
-    subprocess.Popen(comando)
+    # Verifica se mensagem é uma lista e a converte para string se necessário
+    if isinstance(mensagem, list):
+        mensagem = ' '.join(mensagem)
 
+    # Usando o zenity para exibir uma caixa de diálogo de mensagem
+    comando = ' '.join(['zenity', '--info', '--text', mensagem])
+    subprocess.Popen(comando, shell=True)
 
 def check_new_version(current_version):
     code_url = "https://raw.githubusercontent.com/JuanBindez/Chernobyl/main/code.json"
@@ -22,7 +25,6 @@ def check_new_version(current_version):
         latest_version = code_data.get("code", "")
         mensagem = code_data.get("message", "")
 
-        
         while True:
             time.sleep(4)
             if latest_version == current_version:
@@ -34,7 +36,6 @@ def check_new_version(current_version):
 
     except urllib.error.URLError:
         pass
-
 
 if __name__ == "__main__":
     check_new_version("0")
